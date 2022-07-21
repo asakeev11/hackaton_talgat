@@ -83,20 +83,27 @@ class Cars:
 
     @classmethod
     def get_likes(cls, id):
-        data = cls.listing()
-        if data[id - 1]['likes'] == 0:
-            data[id - 1]['likes'] += 1
-        else:
-            data[id - 1]['likes'] -= 1
-        cls.send_data_to_json(data)
-        return 'liked'
+        try:
+            data = cls.listing()
+            if data[id - 1]['likes'] == 0:
+                data[id - 1]['likes'] += 1
+            else:
+                data[id - 1]['likes'] -= 1
+            cls.send_data_to_json(data)
+            return 'liked'
+        except IndexError:
+            print('Нет такого автомобиля')
+
 
     @classmethod
     def get_comment(cls, id, comment):
-        data = cls.listing()
-        data[id - 1]['comments'].append(comment)
-        cls.send_data_to_json(data)
-        return 'commented'
+        try:
+            data = cls.listing()
+            data[id - 1]['comments'].append(comment)
+            cls.send_data_to_json(data)
+            return 'commented'
+        except IndexError:
+            print('Нет такого автомобиля')
 
 with open(Cars.FILE, 'w') as file:
     json.dump([], file)
