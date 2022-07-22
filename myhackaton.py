@@ -1,3 +1,5 @@
+'''РАБОТА ТАЛГАТА'''
+
 import json
 class Cars:
     FILE = 'myhack/myjs.json'
